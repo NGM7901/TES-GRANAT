@@ -13,6 +13,8 @@ TagManager:
   - Stone
   - Tiles
   - Wall
+  - posisiCover
+  - pandangan
   layers:
   - Default
   - TransparentFX
@@ -31,7 +33,7 @@ TagManager:
   - Weapon
   - PlayerBones
   - Wall
-  - 
+  - pandangan
   - 
   - 
   - 
