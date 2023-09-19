@@ -57,10 +57,13 @@ public class CameraC : MonoBehaviour
                         // Mengunci atau membuka pergerakan karakter berdasarkan mode FPS atau TPS
                         if (isFPS)
                         {
-                            characterController.enabled = false; // Matikan pergerakan karakter saat FPS
-                            fpsMovement.enabled = true; // Aktifkan pergerakan FPS
                             teleportDestination = collider.transform;
                             StartCoroutine(TeleportPlayer(teleportDestination.position));
+                            if (isFPS && !isScanning) // Aktifkan pemindaian saat tombol "R" ditekan
+                            {
+                                isScanning = true;
+                                StartCoroutine(ScanForWalls());
+                            }
                         }
                         else
                         {
@@ -70,11 +73,7 @@ public class CameraC : MonoBehaviour
                     }
                 }
             }
-            if (isFPS && !isScanning) // Aktifkan pemindaian saat tombol "R" ditekan
-            {
-                isScanning = true;
-                StartCoroutine(ScanForWalls());
-            }
+            
         }
     }
 
@@ -109,8 +108,9 @@ public class CameraC : MonoBehaviour
     {
         while (isScanning)
         {
+            fpsCamera.enabled = false;
             // Rotasi pemain secara perlahan
-            transform.Rotate(Vector3.up, 200f * Time.deltaTime);
+            transform.Rotate(Vector3.up, 300f * Time.deltaTime);
 
             // Raycast ke depan dari pemain
             Ray ray = new Ray(transform.position + Vector3.up, transform.forward);
@@ -123,6 +123,7 @@ public class CameraC : MonoBehaviour
                     // Tembok terdeteksi, berhenti pemindaian
                     isScanning = false;
                     transform.rotation = Quaternion.identity; // Menghentikan rotasi pemain
+                    fpsCamera.enabled = true;
                 }
             }
 

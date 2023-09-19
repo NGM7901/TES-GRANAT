@@ -15,11 +15,15 @@ public class FPSMovement : MonoBehaviour
 
     void Update()
     {
-        // Pergerakan kiri dan kanan hanya saat mode FPS
-        float horizontalInput = Input.GetAxis("Horizontal");
-        Vector3 moveDirection = new Vector3(horizontalInput, 0, 0);
+        if (Input.GetKey(KeyCode.Space))
+        {
+            // Pergerakan kiri dan kanan hanya saat mode FPS
+            float horizontalInput = Input.GetAxis("Horizontal");
+            Vector3 moveDirection = new Vector3(horizontalInput, 0, 0);
 
-        // Menggunakan Transform untuk menggerakkan karakter
-        playerTransform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+            // Menggunakan Transform untuk menggerakkan karakter
+            playerTransform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        }
+        
     }
 }
