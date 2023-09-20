@@ -14,6 +14,8 @@ public class CameraC : MonoBehaviour
 
     private FPSMovement fpsMovement; // Skrip pergerakan FPS
     private bool isScanning = false;
+    public GameObject canvas1;
+    public GameObject canvas2;
 
 
     void Start()
@@ -21,6 +23,9 @@ public class CameraC : MonoBehaviour
         // Awalnya, aktifkan kamera TPS dan nonaktifkan kamera FPS
         tpsCamera.enabled = true;
         fpsCamera.enabled = false;
+
+        canvas1.SetActive(true);
+        canvas2.SetActive(false);
 
         // Dapatkan komponen CharacterController dari pemain
         characterController = GetComponent<ThirdPersonController>();
@@ -67,6 +72,8 @@ public class CameraC : MonoBehaviour
                         }
                         else
                         {
+                            canvas1.SetActive(true);
+                            canvas2.SetActive(false);
                             characterController.enabled = true; // Aktifkan pergerakan karakter saat TPS
                             fpsMovement.enabled = false; // Matikan pergerakan FPS
                         }
@@ -94,11 +101,9 @@ public class CameraC : MonoBehaviour
         // Aktifkan kembali pergerakan karakter
         if (isFPS)
         {
+            canvas1.SetActive(false);
+            canvas2.SetActive(true);
             fpsMovement.enabled = true;
-        }
-        else
-        {
-            characterController.enabled = true;
         }
 
         isPlayerTeleporting = false;
