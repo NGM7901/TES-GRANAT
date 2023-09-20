@@ -15,6 +15,7 @@ TagManager:
   - Wall
   - posisiCover
   - pandangan
+  - ammo
   layers:
   - Default
   - TransparentFX
