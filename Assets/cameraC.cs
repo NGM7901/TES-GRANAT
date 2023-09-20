@@ -26,7 +26,7 @@ public class CameraC : MonoBehaviour
 
         canvas1.SetActive(true);
         canvas2.SetActive(false);
-
+        
         // Dapatkan komponen CharacterController dari pemain
         characterController = GetComponent<ThirdPersonController>();
 
@@ -90,7 +90,6 @@ public class CameraC : MonoBehaviour
 
         // Matikan pergerakan karakter sementara
         characterController.enabled = false;
-        fpsMovement.enabled = false;
 
         // Teleportasi karakter ke posisi tujuan
         transform.position = destination;
@@ -98,13 +97,11 @@ public class CameraC : MonoBehaviour
         // Tunggu sejenak sebelum mengaktifkan kembali pergerakan
         yield return new WaitForSeconds(0.1f);
 
-        // Aktifkan kembali pergerakan karakter
-        if (isFPS)
-        {
-            canvas1.SetActive(false);
-            canvas2.SetActive(true);
-            fpsMovement.enabled = true;
-        }
+        
+        canvas1.SetActive(false);
+        canvas2.SetActive(true);
+        fpsMovement.enabled = true;
+        
 
         isPlayerTeleporting = false;
     }
