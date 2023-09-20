@@ -5,25 +5,59 @@ using UnityEngine;
 public class FPSMovement : MonoBehaviour
 {
     public float moveSpeed = 5.0f; // Kecepatan pergerakan karakter FPS
+    public float maxDistance = 5.0f; // Jarak maksimum yang dapat ditempuh saat tombol spasi ditekan
 
-    private Transform playerTransform;
+    private bool isMoving = false;
+    private Vector3 initialPosition;
+    private Vector3 targetPosition;
+    private float currentDistance = 0.0f;
 
     void Start()
     {
-        playerTransform = transform;
+        initialPosition = transform.position;
     }
 
     void Update()
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            // Pergerakan kiri dan kanan hanya saat mode FPS
-            float horizontalInput = Input.GetAxis("Horizontal");
-            Vector3 moveDirection = new Vector3(horizontalInput, 0, 0);
+            // Memeriksa apakah pemain mencapai jarak maksimum
+            if (currentDistance < maxDistance)
+            {
+                Vector3 moveDirection = new Vector3(1, 0, 0);
 
-            // Menggunakan Transform untuk menggerakkan karakter
-            playerTransform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+                // Menggunakan Transform untuk menggerakkan karakter
+                transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+
+                // Menambah jarak yang sudah ditempuh
+                currentDistance += moveSpeed * Time.deltaTime;
+                isMoving = true;
+            }
         }
-        
+        else if (isMoving)
+        {
+            // Jika tombol spasi dilepas dan pemain sedang bergerak, hentikan pergerakan
+            isMoving = false;
+            targetPosition = transform.position;
+        }
+
+        // Jika pemain tidak sedang bergerak dan belum mencapai jarak maksimum,
+        // pergerakannya akan mundur ke posisi awal
+        if (!isMoving && currentDistance > 0.0f)
+        {
+            float distanceToInitial = Vector3.Distance(transform.position, initialPosition);
+            
+            if (distanceToInitial > 0.01f)
+            {
+                // Menggerakkan pemain ke posisi awal
+                float step = moveSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, initialPosition, step);
+            }
+            else
+            {
+                // Menghentikan pergerakan setelah mencapai posisi awal
+                currentDistance = 0.0f;
+            }
+        }
     }
 }
