@@ -2,37 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RaycastWithMouseCrosshair : MonoBehaviour
+public class Crosshair : MonoBehaviour
 {
-    [SerializeField] public Camera fpsCamera;
-    [SerializeField] public Transform crosshair;
-    [SerializeField] private float raycastDistance = 100f;
+    public Camera fpsCamera;
+    private RectTransform rectTransform;
+
+    private float canvasWidth = 635f;
+    private float canvasHeight = 397f;
+    private float crosshairSize = 15f;
 
     private void Start()
     {
+        rectTransform = GetComponent<RectTransform>();
+        Cursor.visible = true; // Untuk menampilkan kursor
+        Cursor.lockState = CursorLockMode.None; // Untuk mengizinkan kursor bergerak bebas
     }
 
     private void Update()
     {
-        // Mengambil posisi mouse dalam koordinat layar
+        // Mendapatkan posisi mouse dalam koordinat layar
         Vector3 mousePosition = Input.mousePosition;
 
-        // Konversi posisi mouse ke dalam dunia permainan
-        Vector3 worldPosition = fpsCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, raycastDistance));
+        // Menghitung faktor skala sesuai dengan ukuran crosshair dan canvas
+        float scaleX = canvasWidth / Screen.width;
+        float scaleY = canvasHeight / Screen.height;
 
-        // Memperbarui posisi crosshair sesuai dengan posisi mouse
-        crosshair.position = worldPosition;
+        // Konversi posisi mouse ke dalam koordinat canvas
+        float canvasX = (mousePosition.x * scaleX) - (canvasWidth / 2f);
+        float canvasY = (mousePosition.y * scaleY) - (canvasHeight / 2f);
 
-        // Cast ray dari pusat layar ke arah yang dituju oleh crosshair
-        Ray ray = fpsCamera.ScreenPointToRay(mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, raycastDistance))
-        {
-            // Objek terkena oleh raycast, lakukan sesuatu di sini
-            Debug.Log("Objek yang terkena: " + hit.collider.name);
-
-            // Misalnya, Anda dapat menampilkan informasi objek yang terkena di UI atau menjalankan logika lainnya.
-        }
+        // Mengatur posisi anchored (UI) dari RectTransform
+        rectTransform.anchoredPosition = new Vector2(canvasX, canvasY);
     }
 }

@@ -454,9 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c856e763d1b76344a8afeb59d0e862a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsCamera: {fileID: 2034870973}
-  crosshair: {fileID: 383163139}
-  raycastDistance: 100
+  fpsCamera: {fileID: 0}
 --- !u!1 &409037276
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,8 +1127,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0.1
+  far clip plane: 120
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1840,6 +1838,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 308667333, guid: 9ce03ed22613ec94794c2173f187f0bf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 308667336, guid: 9ce03ed22613ec94794c2173f187f0bf, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2393744036360762136, guid: 9ce03ed22613ec94794c2173f187f0bf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8103260765398148009, guid: 9ce03ed22613ec94794c2173f187f0bf, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2027,8 +2037,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0.1
+  far clip plane: 120
   field of view: 60
   orthographic: 0
   orthographic size: 5
