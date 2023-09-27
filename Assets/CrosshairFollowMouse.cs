@@ -14,8 +14,6 @@ public class Crosshair : MonoBehaviour
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        Cursor.visible = true; // Untuk menampilkan kursor
-        Cursor.lockState = CursorLockMode.None; // Untuk mengizinkan kursor bergerak bebas
     }
 
     private void Update()
@@ -33,5 +31,6 @@ public class Crosshair : MonoBehaviour
 
         // Mengatur posisi anchored (UI) dari RectTransform
         rectTransform.anchoredPosition = new Vector2(canvasX, canvasY);
+        Debug.Log(Input.mousePosition);
     }
 }

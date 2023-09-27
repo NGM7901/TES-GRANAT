@@ -240,7 +240,7 @@ MonoBehaviour:
   WeaponName: Pistol
   WeaponSwitchID: 0
   WeaponPositionID: 0
-  Unlocked: 0
+  Unlocked: 1
   BulletsPerMagazine: 16
   TotalBullets: 150
   BulletsAmounts: 16
